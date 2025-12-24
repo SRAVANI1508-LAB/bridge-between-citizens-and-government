@@ -1,14 +1,14 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { User, Language, AppState, Video } from './types';
-import { translations } from './translations';
-import { VIDEOS } from './constants';
-import AuthForm from './components/AuthForm';
-import VideoGallery from './components/VideoGallery';
-import Navbar from './components/Navbar';
-import Favorites from './components/Favorites';
-import Cart from './components/Cart';
-import AITutor from './components/AITutor';
+import React, { useState, useEffect } from 'react';
+import { User, Language, AppState } from './types.ts';
+import { translations } from './translations.ts';
+import { VIDEOS } from './constants.ts';
+import AuthForm from './components/AuthForm.tsx';
+import VideoGallery from './components/VideoGallery.tsx';
+import Navbar from './components/Navbar.tsx';
+import Favorites from './components/Favorites.tsx';
+import Cart from './components/Cart.tsx';
+import AITutor from './components/AITutor.tsx';
 
 const App: React.FC = () => {
   const [state, setState] = useState<AppState>({
@@ -22,16 +22,18 @@ const App: React.FC = () => {
 
   const t = translations[state.language];
 
-  // Load state from local storage on mount
   useEffect(() => {
     const saved = localStorage.getItem('edustream_state');
     if (saved) {
-      const parsed = JSON.parse(saved);
-      setState(prev => ({ ...prev, ...parsed }));
+      try {
+        const parsed = JSON.parse(saved);
+        setState(prev => ({ ...prev, ...parsed }));
+      } catch (e) {
+        console.error("Failed to load saved state", e);
+      }
     }
   }, []);
 
-  // Save state to local storage when it changes
   useEffect(() => {
     localStorage.setItem('edustream_state', JSON.stringify(state));
   }, [state]);
@@ -80,7 +82,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-slate-50">
       <Navbar 
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
@@ -119,10 +121,10 @@ const App: React.FC = () => {
         )}
       </main>
 
-      {/* Floating AI Tutor Toggle */}
       <button 
         onClick={() => setShowTutor(!showTutor)}
         className="fixed bottom-6 right-6 bg-indigo-600 hover:bg-indigo-700 text-white p-4 rounded-full shadow-xl transition-all hover:scale-110 z-50 flex items-center gap-2"
+        aria-label="Open AI Tutor"
       >
         <span className="font-medium">{t.aiTutor}</span>
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

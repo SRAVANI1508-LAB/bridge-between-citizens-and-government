@@ -1,8 +1,8 @@
 
 import React from 'react';
-import { Video, Language } from '../types';
-import { translations } from '../translations';
-import VideoCard from './VideoCard';
+import { Video, Language } from '../types.ts';
+import { translations } from '../translations.ts';
+import VideoCard from './VideoCard.tsx';
 
 interface VideoGalleryProps {
   videos: Video[];
@@ -30,7 +30,7 @@ const VideoGallery: React.FC<VideoGalleryProps> = ({
         <p className="text-lg text-slate-600">Start your coding journey today with our curated fundamental courses in Java and Python.</p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {videos.map(video => (
           <VideoCard 
             key={video.id}

@@ -1,8 +1,9 @@
 
-import { GoogleGenAI, Type } from "@google/genai";
-import { Language } from "../types";
+import { GoogleGenAI } from "@google/genai";
+import { Language } from "../types.ts";
 
 export const getAITutorResponse = async (query: string, language: Language, context?: string) => {
+  // Use the API key directly from process.env as per instructions
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
   
   const systemInstruction = `You are a professional coding tutor. 

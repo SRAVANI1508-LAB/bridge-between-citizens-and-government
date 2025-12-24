@@ -1,8 +1,8 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Language } from '../types';
-import { translations } from '../translations';
-import { getAITutorResponse } from '../services/geminiService';
+import { Language } from '../types.ts';
+import { translations } from '../translations.ts';
+import { getAITutorResponse } from '../services/geminiService.ts';
 
 interface AITutorProps {
   language: Language;
@@ -32,9 +32,14 @@ const AITutor: React.FC<AITutorProps> = ({ language, onClose }) => {
     setMessages(prev => [...prev, { role: 'user', text: userText }]);
     setIsLoading(true);
 
-    const aiResponse = await getAITutorResponse(userText, language);
-    setMessages(prev => [...prev, { role: 'ai', text: aiResponse || '...' }]);
-    setIsLoading(false);
+    try {
+      const aiResponse = await getAITutorResponse(userText, language);
+      setMessages(prev => [...prev, { role: 'ai', text: aiResponse || 'I encountered an error.' }]);
+    } catch (error) {
+      setMessages(prev => [...prev, { role: 'ai', text: 'Sorry, something went wrong.' }]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

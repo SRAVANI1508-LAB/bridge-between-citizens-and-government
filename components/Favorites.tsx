@@ -1,8 +1,8 @@
 
 import React from 'react';
-import { Video, Language } from '../types';
-import { translations } from '../translations';
-import VideoCard from './VideoCard';
+import { Video, Language } from '../types.ts';
+import { translations } from '../translations.ts';
+import VideoCard from './VideoCard.tsx';
 
 interface FavoritesProps {
   videos: Video[];
@@ -19,7 +19,7 @@ const Favorites: React.FC<FavoritesProps> = ({ videos, language, onToggleFavorit
     <div className="space-y-8">
       <h1 className="text-3xl font-bold text-slate-900">{t.favorites}</h1>
       {videos.length === 0 ? (
-        <div className="text-center py-20 bg-slate-100 rounded-3xl">
+        <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-300">
           <p className="text-slate-400">No favorite videos yet. Start exploring!</p>
         </div>
       ) : (
