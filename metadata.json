@@ -1,0 +1,8 @@
+{
+  "name": "EduStream Multi-Language Learning",
+  "description": "A comprehensive learning platform offering Java and Python courses with multi-language support (English/Telugu), favorite tracking, and an integrated AI tutor.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
